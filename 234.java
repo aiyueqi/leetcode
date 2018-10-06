@@ -12,6 +12,10 @@ class Solution {
         ListNode fast = head;
         ListNode slow = head;
         
+        //假设链表长度为n，下标0-n-1 ，则下标fast = 2*slow
+        //n为偶数时，边界为下标 fast = n, slow = n/2
+        //n为奇数时，边界为下标 fast = n+1, slow = (n+1)/2
+        //无论奇偶，slow的位置可作为检测回文数的起点
         while(fast!=null) {
             slow = slow.next;
             fast = fast.next;
