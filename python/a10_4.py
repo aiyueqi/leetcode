@@ -17,11 +17,10 @@ class Solution:
                     index = j+1
                     if index>=m:
                         continue
-                    if self.match(p[i], s[index]):
-                        tmp = index 
-                        while tmp<n and self.match(s[tmp], p[i]):
-                            newset.add(tmp)
-                            tmp += 1
+
+                    while index<m and self.match(s[index], p[i]):
+                        newset.add(index)
+                        index += 1
 
             else:
                 #匹配一个
@@ -32,6 +31,7 @@ class Solution:
                     if self.match(p[i], s[index]):
                         newset.add(index)
             lastset = newset
+            print(lastset)
         return m-1 in lastset
 
     def match(self, ss, pp):
@@ -41,4 +41,4 @@ class Solution:
                 
 
 s = Solution()
-print(s.isMatch("ab", ".*"))
+print(s.isMatch("mississippi", "mis*is*ip*."))
