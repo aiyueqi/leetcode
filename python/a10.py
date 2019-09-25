@@ -4,31 +4,37 @@ class Solution:
     def isMatch(self, s: str, p: str) -> bool:
         n = len(s)
         m = len(p)
-        A = [[False] * m for i in range(0, n)]
-        #初始化
-        if(len(A) >0 and len(A[0])>0):
-            A[0][0] = True
+        p = p + " "
+        #这里设置成m+1，为了使用p[-1]
+        A = [[False] * (m+1) for i in range(0, 2)]
+        #设置成除了*之外的都ok
+        A[1][-1] = True
 
         #循环
-        for i in range(1, n):
-            for j in range(0, m):
-                index = A[i-1][j]
-                if not index:
+        flag = 1 
+        for i in range(0, n):
+            flag = 1-flag
+            print(A[flag])
+            print(A[1-flag])
+            for j in range(-1, m-1):
+                index = j
+                if not A[1-flag][index]:
                     continue
                 if p[index] != "*" and index + 1 < m:
                     index += 1
-                    A[i][index] = self.letterMatch(s[i], p[index])
+                    A[flag][index] = self.letterMatch(s[i], p[index])
                 elif p[index] == "*":
-                    A[i][index] = self.letterMatch(s[i], p[index]) 
+                    A[flag][index] = self.letterMatch(s[i], p[index]) 
                     while index<m and p[index] == "*":
                         index += 1
                     if index<m:
-                        A[i][index] = self.letterMatch(s[i], p[index])
+                        A[flag][index] = self.letterMatch(s[i], p[index])
                     
         #结尾
         index = m-1
         while index >= 0:
-            if not A[n-1][index]:
+            if not A[flag][index]:
+                index -= 1
                 continue
             for i in range(index+1, m):
                 if p[i] != "*":
@@ -41,4 +47,4 @@ class Solution:
         return pp == "." or ss == pp
 
 test = Solution()
-print(test.isMatch("aa","bb"))
+print(test.isMatch("aa","a*"))

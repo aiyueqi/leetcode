@@ -1,5 +1,6 @@
 from typing import *
 
+#遍历s，与p作比较
 class Solution:
     def isMatch(self, s: str, p: str) -> bool:
         n = len(s)
